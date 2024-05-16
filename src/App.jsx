@@ -5,14 +5,29 @@ import { db } from "./data/db"
 
 function App() {
   const [data, setData] = useState([])
+  const [cart, setCart] = useState([])
   
   useEffect(() => {
     setData(db)
   }, [])
 
+  function addCart(item) {
+    const itemExist = cart.findIndex(guitar => guitar.id === item.id)
+    if (itemExist >= 0) {
+      console.log('Ya existe')
+      const updatedCart = [...cart]
+      updatedCart[itemExist].quantity++
+      setCart(updatedCart)
+    } else {
+      item.quantity = 1
+      setCart([...cart, item])
+    }
+  }
+
   return (
     <>
-    <Header />  
+    <Header 
+    cart={cart}/>  
 
     <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
@@ -24,7 +39,8 @@ function App() {
             name={guitar.name}
             image={guitar.image}
             description={guitar.description}
-            price={guitar.price} 
+            price={guitar.price}
+            addCart={addCart} 
             />)}
         </div>
     </main>
