@@ -6,7 +6,7 @@ import { db } from "./data/db"
 const MIN_ITEMS = 1
 
 function App() {
-  
+
   const initialCart = () => {
     const localStorageCart = localStorage.getItem('guitarLa')
     return localStorageCart ? JSON.parse(localStorageCart) : []
@@ -26,7 +26,6 @@ function App() {
   function addCart(item) {
     const itemExist = cart.findIndex(guitar => guitar.id === item.id)
     if (itemExist >= 0) {
-      console.log('Ya existe')
       const updatedCart = [...cart]
       updatedCart[itemExist].quantity++
       setCart(updatedCart)
@@ -42,7 +41,6 @@ function App() {
 
   function increaseQuantity(id)
   {
-    console.log('Incrementando ' + id)
     const updatedCart = cart.map(item => {
       if (item.id === id) {
         item.quantity++
